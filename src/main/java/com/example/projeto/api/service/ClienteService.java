@@ -50,6 +50,6 @@ public class ClienteService {
         List<Cliente> clientes = (List<Cliente>) clienteRepository.findAll();
         return clientes.stream()
                        .map(ClienteDTO::new)
-                       .collect(Collectors.toList());
+                        .collect(Collectors.toList());
     }
 }

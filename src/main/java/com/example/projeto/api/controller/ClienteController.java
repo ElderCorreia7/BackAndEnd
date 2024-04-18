@@ -14,7 +14,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
+// import para usar o CrossOrigin
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
+// @CrossOrigin(Origins = "http://localhost:3000")  //todas requisições locais da porta 3000 terão acesso a api
+@CrossOrigin(origins = "*") // Libera a api para qualquer um acessar independente da porta do Front-End
 public class ClienteController {
 
     @Autowired
@@ -33,12 +40,16 @@ public class ClienteController {
     @DeleteMapping("/cliente/excluir/{id}")
     public ResponseEntity<?> excluirCliente(@PathVariable int id){
         clienteService.excluir(id);
-        return ResponseEntity.ok().body("Conta excluída!");
+        return ResponseEntity.ok().body("Conta excluída com sucesso!");
     }
 
     @GetMapping("/cliente/recuperar/{id}")
     public ClienteDTO recuperarCliente(@PathVariable int id) {
         return clienteService.recuperar(id);
     }
-    
+
+    @GetMapping("/cliente/recuperar")
+    public List<ClienteDTO> recuperarTodosClientes() {
+        return clienteService.recuperarTodos();
+    }
 }
